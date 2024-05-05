@@ -1,13 +1,10 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import Timer from './components/Timer.vue'
+
 </script>
 
 <template>
-
-    Henlo
-
-    Second henlo
+      <Timer minutes=1 seconds=9 />
 </template>
 
 <style scoped>
@@ -37,4 +34,7 @@ header {
     flex-wrap: wrap;
   }
 }
-</style>
+#main-container {
+  max-width: fit-content;
+  margin-inline: auto;
+}</style>

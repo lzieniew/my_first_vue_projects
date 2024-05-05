@@ -5,6 +5,15 @@
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vite App</title>
+    <style>
+    html, body {
+  height: 100%;  /* Ensures the full height of the viewport is used */
+  margin: 0;     /* Removes default margin */
+  padding: 0;    /* Removes default padding */
+  display: block; /* This is crucial to make sure they are not acting as flex containers */
+}
+
+    </style>
   </head>
   <body>
     <div id="app"></div>
