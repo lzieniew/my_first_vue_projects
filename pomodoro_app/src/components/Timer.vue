@@ -1,17 +1,26 @@
 <script setup>
   import TimeDisplay from './TimeDisplay.vue'
-  import {ref} from 'vue'
+  import { ref, watch } from 'vue'
 
-  const timer_seconds = ref(Number(1500))
+  const timer_seconds = ref(1500);
 
   const tick = () => {
-    timer_seconds--;
-  }
+    timer_seconds.value--;
+    forceUpdate();
+  };
+
+  const interval = setInterval(tick, 1000);
+
+  const forceUpdate = useForceUpdate();
+
+  watch(timer_seconds, (newVal) => {
+    console.log('timer_seconds changed:', newVal);
+  });
 </script>
 
 <template>
-
-    <TimeDisplay seconds=timer_seconds.value />
+    Raw seconds: {{ timer_seconds.value }}
+    <TimeDisplay :seconds="timer_seconds.value" />
 
 </template>
 
