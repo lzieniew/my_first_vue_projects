@@ -6,21 +6,14 @@
 
   const tick = () => {
     timer_seconds.value--;
-    forceUpdate();
   };
 
   const interval = setInterval(tick, 1000);
 
-  const forceUpdate = useForceUpdate();
-
-  watch(timer_seconds, (newVal) => {
-    console.log('timer_seconds changed:', newVal);
-  });
 </script>
 
 <template>
-    Raw seconds: {{ timer_seconds.value }}
-    <TimeDisplay :seconds="timer_seconds.value" />
+    <TimeDisplay :seconds="timer_seconds" />
 
 </template>
 

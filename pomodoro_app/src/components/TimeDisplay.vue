@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 
-const { seconds } = defineProps({
+const props = defineProps({
   seconds: {
     type: Number,
     required: true
@@ -10,10 +10,8 @@ const { seconds } = defineProps({
 
 const formatted_time = computed(() => {
   // Calculate the minutes and seconds from the total seconds
-  console.log(seconds)
-  let minutes = Math.floor(seconds / 60);
-  let remainingSeconds = seconds % 60;
-  console.log(minutes)
+  let minutes = Math.floor(props.seconds / 60);
+  let remainingSeconds = props.seconds % 60;
 
   // Format minutes and seconds to have two digits
   let formattedMinutes = minutes.toString().padStart(2, '0');
