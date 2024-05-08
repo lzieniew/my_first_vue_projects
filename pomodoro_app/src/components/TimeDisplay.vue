@@ -1,30 +1,33 @@
 <script setup>
 import { computed } from 'vue';
 
-const { minutes, seconds } = defineProps({
-  minutes: {
-    type: Number,
-    required: true
-  },
+const { seconds } = defineProps({
   seconds: {
     type: Number,
     required: true
   }
 })
 
-const formattedMinutes = computed(() => {
-  return minutes.toString().padStart(2, '0');
-});
+const formatted_time = computed(() => {
+  // Calculate the minutes and seconds from the total seconds
+  console.log(seconds)
+  let minutes = Math.floor(seconds / 60);
+  let remainingSeconds = seconds % 60;
+  console.log(minutes)
 
-const formattedSeconds = computed(() => {
-  return seconds.toString().padStart(2, '0');
+  // Format minutes and seconds to have two digits
+  let formattedMinutes = minutes.toString().padStart(2, '0');
+  let formattedSeconds = remainingSeconds.toString().padStart(2, '0');
+
+  // Return the formatted time
+  return `${formattedMinutes}:${formattedSeconds}`;
 });
 
 </script>
 
 <template>
   <div class="timer">
-    {{formattedMinutes}}:{{formattedSeconds}}
+    {{formatted_time}}
   </div>
 </template>
 

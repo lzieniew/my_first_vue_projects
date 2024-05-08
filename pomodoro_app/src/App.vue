@@ -4,7 +4,7 @@ import Timer from './components/Timer.vue'
 </script>
 
 <template>
-      <Timer minutes=1 seconds=9 />
+      <Timer/>
 </template>
 
 <style scoped>
