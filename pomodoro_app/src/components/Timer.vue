@@ -28,8 +28,8 @@
   <div class="timer">
     <TimeDisplay :seconds="timer_seconds" />
     <div class="button_row">
-      <button @click="start">Start</button>
-      <button @click="reset">Reset</button>
+      <Button @click="start">Start</button>
+      <Button @click="reset">Reset</button>
     </div>
   </div>
 </template>
@@ -45,6 +45,5 @@
 .button_row {
   display: flex;
   justify-content: space-between;
-  width: 50%;
 }
 </style>
