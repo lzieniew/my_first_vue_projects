@@ -25,7 +25,7 @@
 </script>
 
 <template>
-  <div class="timer">
+  <div class="timer_container">
     <TimeDisplay :seconds="timer_seconds" />
     <div class="button_row">
       <Button @click="start">Start</button>
@@ -35,15 +35,17 @@
 </template>
 
 <style scoped>
-.timer {
+.timer_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-content: space-around;
 }
 
 .button_row {
   display: flex;
   justify-content: space-between;
+  gap: 40px;
 }
 </style>

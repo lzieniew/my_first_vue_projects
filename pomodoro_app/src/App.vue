@@ -3,8 +3,7 @@ import Timer from './components/Timer.vue'
 
 </script>
 
-<template>
-      <Timer/>
+<template> <Timer/>
 </template>
 
 <style scoped>
@@ -17,10 +16,9 @@ header {
   margin: 0 auto 2rem;
 }
 
-@media (min-width: 1024px) {
   header {
     display: flex;
-    place-items: center;
+    align-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }
 
@@ -28,12 +26,6 @@ header {
     margin: 0 2rem 0 0;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 #main-container {
   max-width: fit-content;
   margin-inline: auto;
