@@ -3,23 +3,48 @@
   import { ref, watch } from 'vue'
 
   const timer_seconds = ref(1500);
+  const running = ref(false)
 
-  const tick = () => {
-    timer_seconds.value--;
+  function tick() {
+    if (running.value){
+      timer_seconds.value--;
+    }
   };
+
+  function start() {
+    running.value = true;
+  };
+  
+  function reset() {
+    timer_seconds.value = 1500;
+    running.value = false;
+  }
 
   const interval = setInterval(tick, 1000);
 
 </script>
 
 <template>
+  <div class="timer">
     <TimeDisplay :seconds="timer_seconds" />
-
+    <div class="button_row">
+      <button @click="start">Start</button>
+      <button @click="reset">Reset</button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .timer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}</style>
+}
+
+.button_row {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+</style>
