@@ -2,6 +2,7 @@ image: node:latest
 
 stages:
   - build
+  - deploy
 
 build_pomodoro:
   stage: build
@@ -9,8 +10,17 @@ build_pomodoro:
     - cd pomodoro_app
     - npm install
     - npm run build
-    - mkdir -p ../public/pomodoro_app
-    - mv dist/* ../public/pomodoro_app
+  artifacts:
+    paths:
+      - dist # Temporarily store dist files
+  only:
+    - main
+
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public/pomodoro_app
+    - mv dist/* public/pomodoro_app
   artifacts:
     paths:
       - public
