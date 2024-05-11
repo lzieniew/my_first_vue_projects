@@ -1,0 +1,33 @@
+image: node:latest
+
+stages:
+  - build
+
+build_pomodoro:
+  stage: build
+  script:
+    - cd pomodoro
+    - npm install
+    - npm run build
+    - mkdir -p ../public/pomodoro
+    - mv dist/* ../public/pomodoro
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
+# build_another_app:
+#   stage: build
+#   script:
+#     - cd another-app
+#     - npm install
+#     - npm run build
+#     - mkdir -p ../public/another-app
+#     - mv dist/* ../public/another-app
+#   artifacts:
+#     paths:
+#       - public
+#   only:
+#     - main
+#
