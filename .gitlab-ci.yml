@@ -6,11 +6,11 @@ stages:
 build_pomodoro:
   stage: build
   script:
-    - cd pomodoro
+    - cd pomodoro_app
     - npm install
     - npm run build
-    - mkdir -p ../public/pomodoro
-    - mv dist/* ../public/pomodoro
+    - mkdir -p ../public/pomodoro_app
+    - mv dist/* ../public/pomodoro_app
   artifacts:
     paths:
       - public
