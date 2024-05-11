@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 const base = process.env.NODE_ENV === 'production'
-  ? '/lzieniew/my_first_vue_projects/pomodoro_app/'
+  ? '/my_first_vue_projects/pomodoro_app/'
   : '/';
 
 // https://vitejs.dev/config/
