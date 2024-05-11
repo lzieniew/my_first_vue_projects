@@ -12,7 +12,7 @@ build_pomodoro:
     - npm run build
   artifacts:
     paths:
-      - dist # Temporarily store dist files
+      - pomodoro_app/dist/ # Change this path to the correct location
   only:
     - main
 
@@ -20,7 +20,7 @@ pages:
   stage: deploy
   script:
     - mkdir -p public/pomodoro_app
-    - mv dist/* public/pomodoro_app
+    - mv pomodoro_app/dist/* public/pomodoro_app # Ensure the source path here is correct
   artifacts:
     paths:
       - public
