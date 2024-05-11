@@ -10,6 +10,7 @@ build_pomodoro:
     - cd pomodoro_app
     - npm install
     - npm run build
+    - ls -al dist
   artifacts:
     paths:
       - pomodoro_app/dist/ # Change this path to the correct location
