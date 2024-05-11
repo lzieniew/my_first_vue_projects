@@ -36,6 +36,8 @@ pages:
   script:
     - mkdir -p public/pomodoro_app
     - mv pomodoro_app/dist/* public/pomodoro_app # Ensure the source path here is correct
+    - ls -al public/pomodoro_app
+    - ls -al public/pomodoro_app/assets
   # - mkdir -p public/another-app
   # - mv another-app/dist/* public/another-app
   artifacts:
