@@ -1,15 +1,27 @@
 <script setup>
   import TimeDisplay from './TimeDisplay.vue'
-  import { ref, watch, onUnmounted } from 'vue'
+  import { ref, watch, onUnmounted, onMounted } from 'vue'
 
   const timer_seconds = ref(1500);
   const running = ref(false);
   const button_text = ref("Start");
   let intervalId = null;
 
+  function sendNotification(title, message) {
+    const notification = new Notification(title, { body: message });
+    notification.show();
+  }
+
   function tick() {
     if (running.value){
-      timer_seconds.value--;
+      if (timer_seconds.value > 0) {
+        timer_seconds.value--;
+      }
+      else {
+        running.value = false;
+        clearInterval(intervalId)
+        sendNotification('Pomodoro done!', 'Now you can rest.')
+      }
     }
   };
 
@@ -27,6 +39,18 @@
       clearInterval(intervalId);
     }
   };
+
+  onMounted(() => {
+  if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+      } else {
+        console.log('Notification permission denied.');
+      }
+    });
+  }
+});
 
  onUnmounted(() => {
   if (intervalId) {
