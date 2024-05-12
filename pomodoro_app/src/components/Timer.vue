@@ -17,6 +17,7 @@
       console.log("not running");
       running.value = true;
       button_text.value = "Reset";
+      timer_seconds.value = 1499;
     }
     else {
       console.log("running");
