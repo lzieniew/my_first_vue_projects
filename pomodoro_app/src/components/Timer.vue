@@ -3,7 +3,8 @@
   import { ref, watch } from 'vue'
 
   const timer_seconds = ref(1500);
-  const running = ref(false)
+  const running = ref(false);
+  const button_text = ref("Start");
 
   function tick() {
     if (running.value){
@@ -11,14 +12,19 @@
     }
   };
 
-  function start() {
-    running.value = true;
+  function on_click() {
+    if (!running.value) {
+      console.log("not running");
+      running.value = true;
+      button_text.value = "Reset";
+    }
+    else {
+      console.log("running");
+      button_text.value = "Start";
+      running.value = false;
+      timer_seconds.value = 1500;
+    }
   };
-  
-  function reset() {
-    timer_seconds.value = 1500;
-    running.value = false;
-  }
 
   const interval = setInterval(tick, 1000);
 
@@ -28,8 +34,7 @@
   <div class="timer_container">
     <TimeDisplay :seconds="timer_seconds" />
     <div class="button_row">
-      <Button @click="start">Start</button>
-      <Button @click="reset">Reset</button>
+      <Button @click="on_click">{{ button_text }}</button>
     </div>
   </div>
 </template>
@@ -45,7 +50,12 @@
 
 .button_row {
   display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  justify-content: center;
+  width: 100%;
+}
+
+.p-button {
+  flex-grow: 2;
+  justify-content: center;
 }
 </style>
