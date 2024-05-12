@@ -1,10 +1,11 @@
 <script setup>
   import TimeDisplay from './TimeDisplay.vue'
-  import { ref, watch } from 'vue'
+  import { ref, watch, onUnmounted } from 'vue'
 
   const timer_seconds = ref(1500);
   const running = ref(false);
   const button_text = ref("Start");
+  let intervalId = null;
 
   function tick() {
     if (running.value){
@@ -14,20 +15,25 @@
 
   function on_click() {
     if (!running.value) {
-      console.log("not running");
       running.value = true;
       button_text.value = "Reset";
       timer_seconds.value = 1499;
+      intervalId = setInterval(tick, 1000);
     }
     else {
-      console.log("running");
       button_text.value = "Start";
       running.value = false;
       timer_seconds.value = 1500;
+      clearInterval(intervalId);
     }
   };
 
-  const interval = setInterval(tick, 1000);
+ onUnmounted(() => {
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+ });
+
 
 </script>
 
