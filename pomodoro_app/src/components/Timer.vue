@@ -7,14 +7,11 @@
   const button_text = ref("Start");
   let intervalId = null;
 
-  const audio = new Audio('/pomodoro_completed_sound.wav');
+  const audio = new Audio(import.meta.env.BASE_URL + 'pomodoro_completed_sound.wav');
+  
 
   function sendNotification(title, message) {
     new Notification(title, { body: message });
-  }
-
-  function debug_play_sound() {
-    audio.play();
   }
 
   function tick() {
@@ -35,7 +32,7 @@
     if (!running.value) {
       running.value = true;
       button_text.value = "Reset";
-      timer_seconds.value = 3;
+      timer_seconds.value = 1499;
       intervalId = setInterval(tick, 1000);
     }
     else {
@@ -72,7 +69,6 @@
     <TimeDisplay :seconds="timer_seconds" />
     <div class="button_row">
       <Button @click="on_click">{{ button_text }}</button>
-      <Button @click="debug_play_sound">"Debug play sound"</Button>
     </div>
   </div>
 </template>
