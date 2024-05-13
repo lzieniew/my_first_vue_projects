@@ -13,6 +13,10 @@
     new Notification(title, { body: message });
   }
 
+  function debug_play_sound() {
+    audio.play();
+  }
+
   function tick() {
     if (running.value){
       if (timer_seconds.value > 0) {
@@ -31,7 +35,7 @@
     if (!running.value) {
       running.value = true;
       button_text.value = "Reset";
-      timer_seconds.value = 1499;
+      timer_seconds.value = 3;
       intervalId = setInterval(tick, 1000);
     }
     else {
@@ -68,6 +72,7 @@
     <TimeDisplay :seconds="timer_seconds" />
     <div class="button_row">
       <Button @click="on_click">{{ button_text }}</button>
+      <Button @click="debug_play_sound">"Debug play sound"</Button>
     </div>
   </div>
 </template>
@@ -83,7 +88,8 @@
 
 .button_row {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  gap: 20px;
   width: 100%;
 }
 
