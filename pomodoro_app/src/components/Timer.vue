@@ -7,9 +7,10 @@
   const button_text = ref("Start");
   let intervalId = null;
 
+  const audio = new Audio('/pomodoro_completed_sound.wav');
+
   function sendNotification(title, message) {
-    const notification = new Notification(title, { body: message });
-    notification.show();
+    new Notification(title, { body: message });
   }
 
   function tick() {
@@ -21,6 +22,7 @@
         running.value = false;
         clearInterval(intervalId)
         sendNotification('Pomodoro done!', 'Now you can rest.')
+        audio.play();
       }
     }
   };
