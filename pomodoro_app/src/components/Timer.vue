@@ -4,7 +4,10 @@
 
   const timer_seconds = ref(1500);
   const running = ref(false);
+  const pomodoro_completed = ref(false);
   const button_text = ref("Start");
+  const pomodoro_counter = ref(0);
+  const status_line = ref("")
   let intervalId = null;
 
   const audio = new Audio(import.meta.env.BASE_URL + 'pomodoro_completed_sound.wav');
@@ -21,27 +24,37 @@
       }
       else {
         running.value = false;
-        clearInterval(intervalId)
-        sendNotification('Pomodoro done!', 'Now you can rest.')
+        pomodoro_completed.value = true;
+        pomodoro_counter.value++;
+        clearInterval(intervalId);
+        sendNotification('Pomodoro done!', 'Now you can rest.');
         audio.play();
+        status_line.value = `Completed pomodoro ${pomodoro_counter.value}`;
       }
     }
   };
 
-  function on_click() {
-    if (!running.value) {
-      running.value = true;
-      button_text.value = "Reset";
-      timer_seconds.value = 1499;
-      intervalId = setInterval(tick, 1000);
-    }
-    else {
-      button_text.value = "Start";
+  function on_click_reset() {
       running.value = false;
+      pomodoro_completed.value = false;
       timer_seconds.value = 1500;
       clearInterval(intervalId);
-    }
+      status_line.value = `Pomodoro completed: ${pomodoro_counter.value}`;
   };
+
+  function on_click_start() {
+      running.value = true;
+      timer_seconds.value = 1499;
+      intervalId = setInterval(tick, 1000);
+      status_line.value = `Running pomodoro ${pomodoro_counter.value + 1}`;
+  }
+
+  function on_click_break() {
+    timer_seconds.value = 300;
+    intervalId = setInterval(tick, 1000);
+    running.value = true;
+    status_line.value = `On break after pomodoro ${pomodoro_counter.value}`;
+  }
 
   onMounted(() => {
   if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
@@ -66,9 +79,20 @@
 
 <template>
   <div class="timer_container">
+    <div class="Status"><b>{{ status_line }}</b></div>
     <TimeDisplay :seconds="timer_seconds" />
-    <div class="button_row">
-      <Button @click="on_click">{{ button_text }}</button>
+    <div v-if="!running && pomodoro_completed" class="button_row">
+      <Button @click="on_click_reset">Another pomodoro</button>
+      <Button @click="on_click_break">Break</button>
+    </div>
+    <div v-else-if="!running && !pomodoro_completed" class="button_row">
+      <Button @click="on_click_start">Start</button>
+    </div>
+    <div v-else-if="running && pomodoro_completed" class="button_row">
+      <Button @click="on_click_reset">End break</button>
+    </div>
+    <div v-else class="button_row">
+      <Button @click="on_click_reset">Reset</button>
     </div>
   </div>
 </template>
@@ -87,10 +111,12 @@
   justify-content: space-around;
   gap: 20px;
   width: 100%;
+  gap: 10px;
 }
 
 .p-button {
-  flex-grow: 2;
+  flex-grow: 4;
   justify-content: center;
+  flex-basis: 1vw;
 }
 </style>
